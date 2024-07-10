@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # 1
-df = pd.read_csv("medical_examination.csv")
+df = pd.read_csv("Data_Analysis_with_Python\Medical_Data_Visualizer\medical_examination.csv")
 
 # 2
 df['overweight'] = (df['weight'] / ((df['height'] / 100) ** 2) > 25).astype(int)
