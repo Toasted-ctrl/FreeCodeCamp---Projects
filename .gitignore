@@ -1,0 +1,11 @@
+#cache
+__pycache__/
+
+#csv files
+*.csv
+
+#env files
+.env
+
+#png files
+*.png
