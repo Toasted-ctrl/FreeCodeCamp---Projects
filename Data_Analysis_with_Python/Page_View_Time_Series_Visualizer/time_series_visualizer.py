@@ -5,23 +5,19 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
-df = pd.read_csv("Data_Analysis_with_Python\Page_View_Time_Series_Visualizer\download-fcc-forum-pageviews.csv",parse_dates=True)
-
-df['date'] = pd.to_datetime(df['date'])
+df = pd.read_csv("Data_Analysis_with_Python\Page_View_Time_Series_Visualizer\download-fcc-forum-pageviews.csv",parse_dates=["date"], index_col="date")
 
 # Clean data
 df = df[(df['value'] >= df['value'].quantile(0.025)) &
         (df['value'] <= df['value'].quantile(0.975))]
 
-print(df.head())
-
 def draw_line_plot():
 
     df_line_plot = df.copy()
 
-    fig = plt.figure(figsize=(16, 9))
+    fig, ax = plt.subplots(figsize=(16, 9))
 
-    ax = plt.plot(df_line_plot['date'], df_line_plot['value'])
+    ax = plt.plot(df_line_plot.index, df_line_plot['value'])
     
     #setting label names and title
     plt.xlabel('Date')
@@ -36,19 +32,13 @@ def draw_bar_plot():
     # Copy and modify data for monthly bar plot
     df_bar = df.copy()
 
-    df_bar['Years'] = df_bar['date'].dt.year
-    df_bar['Months'] = df_bar['date'].dt.month_name()
-    df_bar = pd.DataFrame(df_bar.groupby(['Years', 'Months'], sort=False)['value'].mean())
+    df_bar['Years'] = df_bar.index.year
+    df_bar['Month'] = df_bar.index.month
+    df_bar = df_bar.groupby(["Years", "Month"])['value'].mean()
+    df_bar = df_bar.unstack()
 
-    # Draw bar plot
-
-    fig, ax = plt.subplots(figsize=(14, 14))
-
-    hue_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-    chart = sns.barplot(data=df_bar, x='Years', y='value', hue='Months', palette='tab10', hue_order=hue_order)
-
-    plt.ylabel('Average Page Views')
+    fig = df_bar.plot.bar(figsize=(14,14), legend=True, ylabel="Average Page Views").figure
+    plt.legend(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
@@ -79,5 +69,3 @@ def draw_box_plot():
     # Save image and return fig (don't change this part)
     fig.savefig('box_plot.png')
     return fig
-
-draw_box_plot()
