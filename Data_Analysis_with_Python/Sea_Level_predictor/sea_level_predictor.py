@@ -3,11 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
+##Took some inspiration from (as I did not quite understand how to create the two best fit lines at first):
+# https://www.youtube.com/watch?v=mQunppIWH4c
+# https://www.youtube.com/watch?v=RJxJEZrx9X0
+
 def draw_plot():
     # Read data from file
 
     df = pd.read_csv("Data_Analysis_with_Python\Sea_Level_predictor\epa-sea-level.csv")
     print(df.head())
+    print('\n')
 
     # Create scatter plot
 
@@ -18,7 +23,7 @@ def draw_plot():
     y = df["CSIRO Adjusted Sea Level"]
 
     fig, ax = plt.subplots(figsize=(10,10))
-    plt.scatter(x, y)
+    ax1 = plt.scatter(x, y)
 
     # Create first line of best fit
 
@@ -31,7 +36,7 @@ def draw_plot():
     # formula is basically ax + b
     y_pred = regression.slope*x_pred + regression.intercept
 
-    plt.plot(x_pred, y_pred)
+    ax2 = plt.plot(x_pred, y_pred)
 
     slope_1 = str(regression.slope)
     intercept_1 = str(regression.intercept)
@@ -60,7 +65,7 @@ def draw_plot():
     y2_pred = regression_2.slope*x2_pred + regression_2.intercept
 
     #formula is basically ax + b
-    plt.plot(x2_pred, y2_pred)
+    ax3 = plt.plot(x2_pred, y2_pred)
 
     slope_2 = str(regression_2.slope)
     intercept_2 = str(regression_2.intercept)
@@ -76,3 +81,5 @@ def draw_plot():
     # Save plot and return data for testing (DO NOT MODIFY)
     plt.savefig('sea_level_plot.png')
     return plt.gca()
+
+draw_plot()
