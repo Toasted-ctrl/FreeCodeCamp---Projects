@@ -5,6 +5,8 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
+
+#DO NOT FORGET TO ADD COLUMN NAME TO 'parse_dates'. I JUST ADDED =TRUE and in hindsight this is what caused many of my headaches.
 df = pd.read_csv("Data_Analysis_with_Python\Page_View_Time_Series_Visualizer\download-fcc-forum-pageviews.csv",parse_dates=["date"], index_col="date")
 
 # Clean data
@@ -17,6 +19,7 @@ def draw_line_plot():
 
     fig, ax = plt.subplots(figsize=(16, 9))
 
+    #rewrote to use df_line_plot.index instead of prior df_line_plot['date'] after parsing dates correctly.
     ax = plt.plot(df_line_plot.index, df_line_plot['value'])
     
     #setting label names and title
