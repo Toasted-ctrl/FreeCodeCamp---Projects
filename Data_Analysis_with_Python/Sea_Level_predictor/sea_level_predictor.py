@@ -27,7 +27,7 @@ def draw_plot():
 
     # Create first line of best fit
 
-    # res.slope = a, res.intercept = b
+    # regression.slope = a, regression.intercept = b
     regression = linregress(x, y)
 
     # x_pred = x
@@ -40,8 +40,8 @@ def draw_plot():
 
     slope_1 = str(regression.slope)
     intercept_1 = str(regression.intercept)
-    print(f"Best fit 1: The slope is {slope_1}.")
-    print(f"Best fit 1: The intercept is {intercept_1}.")
+    print(f"Best fit 1: The slope = {slope_1}.")
+    print(f"Best fit 1: The intercept = {intercept_1}.")
     print(f"Best fit 1: Formula = ( {slope_1} * x2_pred ) + {intercept_1}.\n")
 
     # Create second line of best fit
@@ -55,7 +55,7 @@ def draw_plot():
     #values for y in linregress
     y2 = df_second_fit["CSIRO Adjusted Sea Level"]
 
-    #res2.slope = a, res2.intercept = b
+    #regression_2.slope = a, regression_2.intercept = b
     regression_2 = linregress(x2, y2)
 
     #x2_pred = x
@@ -69,8 +69,8 @@ def draw_plot():
 
     slope_2 = str(regression_2.slope)
     intercept_2 = str(regression_2.intercept)
-    print(f"Best fit 2: The slope is {slope_2}.")
-    print(f"Best fit 2: The intercept is {intercept_2}.")
+    print(f"Best fit 2: The slope = {slope_2}.")
+    print(f"Best fit 2: The intercept = {intercept_2}.")
     print(f"Best fit 2: Formula = ( {slope_2} * x2_pred ) + {intercept_2}.\n")
 
     # Add labels and title
