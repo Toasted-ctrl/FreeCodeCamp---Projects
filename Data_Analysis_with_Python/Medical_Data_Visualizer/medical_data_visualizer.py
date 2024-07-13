@@ -56,12 +56,13 @@ def draw_heat_map():
         #NOTES
         # using np.tril will create a triangle in the opposite direction in final figure.
         # another example used 'bool' as dtype, but appears to not matter in this case. Not completely sure why. int still works fine
+        # example found here: https://github.com/fuzzyray/medical-data-visualizer
 
     # 14
-    fig, ax = plt.subplots(figsize=(14, 9))
+    fig, ax = plt.subplots(figsize=(15, 10))
 
     # 15
-    sns.heatmap(corr, mask=mask, square=True, annot=True, fmt="0.1f")
+    sns.heatmap(corr, mask=mask, annot=True, fmt="0.1f")
 
         #NOTES
         #adding 'f' in fmt="0.1f" will make the value fitted within square, no overflow.

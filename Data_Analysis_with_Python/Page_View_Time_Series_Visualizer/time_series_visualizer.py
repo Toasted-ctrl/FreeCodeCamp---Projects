@@ -37,8 +37,11 @@ def draw_bar_plot():
     df_bar = df_bar.groupby(["Years", "Month"])['value'].mean()
     df_bar = df_bar.unstack()
 
-    fig = df_bar.plot.bar(figsize=(14,14), legend=True, ylabel="Average Page Views").figure
+    # ^ if anyone ever reads this, don't forget the () after 'unstack', this is what I could not figure out for hours and needed help for.
+
+    fig = df_bar.plot.bar(figsize=(14,14), legend=True).figure
     plt.legend(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
+    plt.ylabel("Average Page Views")
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
